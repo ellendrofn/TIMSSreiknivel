@@ -147,6 +147,7 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
   <button class="tab-btn active" onclick="showTab('rekstr')">Rekstrarkostnaður</button>
   <button class="tab-btn" onclick="showTab('laun')">Launakostnaður stjórnenda</button>
   <button class="tab-btn" onclick="showTab('skipulag')">Skipulag prófstjóra</button>
+  <button style="margin-left:auto;padding:10px 16px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;color:#94a3b8;white-space:nowrap" onclick="resetAll()">Núllstilla allt</button>
 </div>
 
 <!-- ===================== TAB 1: REKSTRARKOSTNAÐUR ===================== -->
@@ -170,28 +171,30 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
     <div class="sec-body">
       <div class="row">
         <div><div class="row-label">Fjöldi skóla</div><div class="row-hint">Forprófun: 30 · Aðalprófun: ~170</div></div>
-        <input type="number" id="skolar" value="30" min="1" max="500" oninput="calc()">
+        <input type="number" id="skolar" value="0" min="1" max="500" oninput="calc()">
         <div class="row-result" id="r-skolar">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Nemendur í 5. bekk</div><div class="row-hint">Hagstofa 2024: 4.700 á landsvísu</div></div>
-        <input type="number" id="nem5" value="4700" min="0" oninput="calc()">
+        <input type="number" id="nem5" value="0" min="0" oninput="calc()">
         <div class="row-result" id="r-nem5">–</div>
       </div>
       <div class="row">
-        <div><div class="row-label">Áætlaðir bekkir (5. bekk)</div><div class="row-hint">Hagstofa 2024: ~214 bekkir á landsvísu</div></div>
-        <input type="number" id="bekkir5" value="214" min="1" oninput="calc()">
-        <div class="row-result" id="r-bekkir5">–</div>
-      </div>
-      <div class="row">
         <div><div class="row-label">Nemendur í 9. bekk</div><div class="row-hint">Hagstofa 2024: 5.100 á landsvísu</div></div>
-        <input type="number" id="nem9" value="5100" min="0" oninput="calc()">
+        <input type="number" id="nem9" value="0" min="0" oninput="calc()">
         <div class="row-result" id="r-nem9">–</div>
       </div>
-      <div class="row">
-        <div><div class="row-label">Áætlaðir bekkir (9. bekk)</div><div class="row-hint">Hagstofa 2024: ~232 bekkir á landsvísu</div></div>
-        <input type="number" id="bekkir9" value="232" min="1" oninput="calc()">
-        <div class="row-result" id="r-bekkir9">–</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:.75rem 0">
+        <div class="metric" style="text-align:center">
+          <div class="metric-label">Áætlaðir bekkir — 5. bekk</div>
+          <div class="metric-value" id="r-bekkir5" style="font-size:28px">–</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px">nemendur ÷ 22</div>
+        </div>
+        <div class="metric" style="text-align:center">
+          <div class="metric-label">Áætlaðir bekkir — 9. bekk</div>
+          <div class="metric-value" id="r-bekkir9" style="font-size:28px">–</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px">nemendur ÷ 22</div>
+        </div>
       </div>
       <div class="row" style="background:#f8fafc">
         <div><div class="row-label" style="font-weight:600">Bekkir samtals (= fjöldi prófstjóra)</div></div>
@@ -214,23 +217,23 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
     </div>
     <div class="sec-body">
       <div class="row">
-        <div><div class="row-label">Fjöldi prófstjóra</div><div class="row-hint" id="profs-hint">Sjá "Skipulag prófstjóra" flipa til að reikna þetta út</div></div>
-        <input type="number" id="pf" value="0" min="0" oninput="calc()">
-        <div class="row-result" id="r-pf">–</div>
+        <div><div class="row-label">Fjöldi prófstjóra</div><div class="row-hint">Reiknað: bekkir ÷ dagar (1 bekk/dag/mann)</div></div>
+        <div></div>
+        <div class="row-result" id="r-pf" style="font-size:20px;font-weight:700;color:#1E2761">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Vinnudagar</div></div>
-        <input type="number" id="pd" value="15" min="1" oninput="calc()">
+        <input type="number" id="pd" value="0" min="0" oninput="calc()">
         <div class="row-result" id="r-pd">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Tímar á dag að meðaltali</div></div>
-        <input type="number" id="pt" value="6" min="1" max="12" step="0.5" oninput="calc()">
+        <input type="number" id="pt" value="0" min="0" max="12" step="0.5" oninput="calc()">
         <div class="row-result" id="r-pt">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Tímakaup (kr)</div></div>
-        <input type="number" id="pk" value="4200" min="1000" oninput="calc()">
+        <input type="number" id="pk" value="0" min="0" oninput="calc()">
         <div class="row-result" id="r-proflaun">–</div>
       </div>
     </div>
@@ -244,23 +247,23 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
     </div>
     <div class="sec-body">
       <div class="row">
-        <div><div class="row-label">Fjöldi gæðastjóra</div><div class="row-hint" id="gaeda-hint">10% af skólum</div></div>
-        <input type="number" id="gf" value="3" min="0" oninput="calc()">
-        <div class="row-result" id="r-gf">–</div>
+        <div><div class="row-label">Fjöldi gæðastjóra</div><div class="row-hint">Reiknað: 10% af skólum</div></div>
+        <div></div>
+        <div class="row-result" id="r-gf" style="font-size:20px;font-weight:700;color:#1E2761">–</div>
       </div>
       <div class="row">
-        <div><div class="row-label">Vinnudagar</div></div>
-        <input type="number" id="gd" value="15" min="1" oninput="calc()">
-        <div class="row-result" id="r-gd">–</div>
+        <div><div class="row-label">Vinnudagar</div><div class="row-hint">Sótt sjálfkrafa úr a) prófstjórar</div></div>
+        <div></div>
+        <div class="row-result" id="r-gd" style="color:#64748b">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Tímar á dag</div></div>
-        <input type="number" id="gt" value="6" min="1" max="12" step="0.5" oninput="calc()">
+        <input type="number" id="gt" value="0" min="1" max="12" step="0.5" oninput="calc()">
         <div class="row-result" id="r-gt">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Tímakaup (kr)</div></div>
-        <input type="number" id="gk" value="4200" min="1000" oninput="calc()">
+        <input type="number" id="gk" value="0" min="1000" oninput="calc()">
         <div class="row-result" id="r-gaedalaun">–</div>
       </div>
     </div>
@@ -275,12 +278,12 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
     <div class="sec-body">
       <div class="row">
         <div><div class="row-label">Meðalakstur á dag (km/mann)</div><div class="row-hint">Prófstjórar + gæðastjórar</div></div>
-        <input type="number" id="km" value="15" min="0" oninput="calc()">
+        <input type="number" id="km" value="0" min="0" oninput="calc()">
         <div class="row-result" id="r-km">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Aksturstaxti (kr/km)</div><div class="row-hint">Ríkisreglur okt. 2025: 144 kr/km</div></div>
-        <input type="number" id="krkm" value="144" min="50" oninput="calc()">
+        <input type="number" id="krkm" value="0" min="50" oninput="calc()">
         <div class="row-result" id="r-krkm">–</div>
       </div>
       <div class="row">
@@ -313,22 +316,22 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
     <div class="sec-body">
       <div class="row">
         <div><div class="row-label">Fjöldi kóðara</div><div class="row-hint" id="kodara-hint">1 kóðari / 500 nem. (reiknað)</div></div>
-        <input type="number" id="kof" value="5" min="1" oninput="calc()">
+        <input type="number" id="kof" value="0" min="1" oninput="calc()">
         <div class="row-result" id="r-kof">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Vinnudagar</div></div>
-        <input type="number" id="kod" value="5" min="1" oninput="calc()">
+        <input type="number" id="kod" value="0" min="1" oninput="calc()">
         <div class="row-result" id="r-kod">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Tímar á dag</div></div>
-        <input type="number" id="kot" value="8" min="1" max="10" oninput="calc()">
+        <input type="number" id="kot" value="0" min="1" max="10" oninput="calc()">
         <div class="row-result" id="r-kot">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Tímakaup (kr)</div></div>
-        <input type="number" id="kok" value="4200" min="1000" oninput="calc()">
+        <input type="number" id="kok" value="0" min="1000" oninput="calc()">
         <div class="row-result" id="r-kodlaun">–</div>
       </div>
     </div>
@@ -343,22 +346,22 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
     <div class="sec-body">
       <div class="row">
         <div><div class="row-label">Pappír og prentun</div><div class="row-hint">Próftextar, leiðbeiningar, skráningarblöð</div></div>
-        <input type="number" id="an-pappir" value="150000" min="0" step="10000" oninput="calc()">
+        <input type="number" id="an-pappir" value="0" min="0" step="10000" oninput="calc()">
         <div class="row-result" id="r-pappir">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Möppur og umbúðir</div><div class="row-hint">Til að pakka og geyma prófgögn</div></div>
-        <input type="number" id="an-moppur" value="80000" min="0" step="10000" oninput="calc()">
+        <input type="number" id="an-moppur" value="0" min="0" step="10000" oninput="calc()">
         <div class="row-result" id="r-moppur">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Póstur og sending</div><div class="row-hint">Sending gagna til og frá skólum</div></div>
-        <input type="number" id="an-postur" value="50000" min="0" step="10000" oninput="calc()">
+        <input type="number" id="an-postur" value="0" min="0" step="10000" oninput="calc()">
         <div class="row-result" id="r-postur">–</div>
       </div>
       <div class="row">
         <div><div class="row-label">Annar rekstrarkostnaður</div><div class="row-hint">Þýðing, tækni, óvænt útgjöld o.fl.</div></div>
-        <input type="number" id="an-adrir" value="100000" min="0" step="10000" oninput="calc()">
+        <input type="number" id="an-adrir" value="0" min="0" step="10000" oninput="calc()">
         <div class="row-result" id="r-adrir">–</div>
       </div>
     </div>
@@ -372,6 +375,10 @@ footer{text-align:center;font-size:12px;color:#94a3b8;margin-top:2rem;padding-to
     </div>
     <div class="sec-body">
       <div id="breakdown"></div>
+      <div style="background:#1E2761;border-radius:10px;padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;margin:.75rem 0">
+        <span style="font-size:14px;color:#CADCFC;font-weight:500">Heildarkostnaður</span>
+        <span style="font-size:24px;font-weight:800;color:#fff" id="breakdown-total">–</span>
+      </div>
       <div style="background:#EEF2FF;border:1px solid #c7d2fe;border-radius:8px;padding:.6rem 1rem;font-size:12px;color:#3730a3;margin-top:1rem">
         <strong>Heimildir:</strong> Aksturspening: Ferðakostnaðarnefnd, auglýsing nr. 1/2025 · Nemendatölur: <a href="https://px.hagstofa.is/pxis/pxweb/is/Samfelag/Samfelag__skolamal__2_grunnskolastig__0_gsNemendur/SKO02102.px" target="_blank" style="color:#3730a3">Hagstofa Íslands, grunnskólastig 2024</a>
       </div>
@@ -632,28 +639,34 @@ function showTab(id){
 // ---------- TAB 1: REKSTRARKOSTNAÐUR ----------
 function calc(){
   const skolar=v('skolar'),nem5=v('nem5'),nem9=v('nem9');
-  const bekkir5=v('bekkir5'), bekkir9=v('bekkir9');
+  const BEKK_STERD=22;
+  const bekkir5=nem5>0?Math.round(nem5/BEKK_STERD):0;
+  const bekkir9=nem9>0?Math.round(nem9/BEKK_STERD):0;
   const nemTotal=nem5+nem9;
   const bekkirtotal=bekkir5+bekkir9;
 
   set('r-nem5',nem5.toLocaleString('is-IS')+' nem.');
   set('r-nem9',nem9.toLocaleString('is-IS')+' nem.');
-  set('r-bekkir5',bekkir5+' bekkir');
-  set('r-bekkir9',bekkir9+' bekkir');
+  set('r-bekkir5',bekkir5||'–');
+  set('r-bekkir9',bekkir9||'–');
   set('r-bekkirtotal',bekkirtotal+' bekkir / prófstjórar');
 
-  document.getElementById('gaeda-hint').textContent='10% af skólum = '+Math.max(1,Math.round(skolar*.1))+' gæðastjórar';
+  
   document.getElementById('kodara-hint').textContent='1 kóðari/500 nem. = '+Math.max(1,Math.round(nemTotal/500))+' kóðarar';
 
 
-  const pf=v('pf'),pd=v('pd'),pt=v('pt'),pk=v('pk');
+  const pd=v('pd'),pt=v('pt'),pk=v('pk');
+  const pf = (pd>0 && bekkirtotal>0) ? Math.ceil(bekkirtotal/pd) : bekkirtotal;
   const proflaun=pf*pd*pt*pk;
-  set('r-pf',pf+' prófstjórar'); set('r-pd',pd+' dagar'); set('r-pt',pt+' klst/dag');
+  set('r-pf', pd>0 ? pf+' prófstjórar' : (bekkirtotal>0 ? bekkirtotal+' prófstjórar' : '–'));
+  set('r-pd',pd+' dagar'); set('r-pt',pt+' klst/dag');
   set('r-proflaun',fmtM(proflaun)); set('st-profs',fmtM(proflaun));
 
-  const gf=v('gf'),gd=v('gd'),gt=v('gt'),gk=v('gk');
+  const gf=skolar>0?Math.ceil(skolar*0.1):0;
+  const gd=pd; // sömu dagar og prófstjórar
+  const gt=v('gt'),gk=v('gk');
   const gaedalaun=gf*gd*gt*gk;
-  set('r-gf',gf+' gæðastjórar'); set('r-gd',gd+' dagar'); set('r-gt',gt+' klst/dag');
+  set('r-gf',gf>0?gf+' gæðastjórar':'–'); set('r-gd',gd>0?gd+' dagar (= prófstjóradagar)':'–'); set('r-gt',gt+' klst/dag');
   set('r-gaedalaun',fmtM(gaedalaun)); set('st-gaeda',fmtM(gaedalaun));
 
   const km=v('km'),krkm=v('krkm');
@@ -676,6 +689,7 @@ function calc(){
 
   const total=proflaun+gaedalaun+akstur+kodlaun+annar;
   set('total-val',fmtM(total));
+  set('breakdown-total',fmtM(total));
   set('r-skolar',skolar+' skólar');
   set('r-nemtotal',nemTotal.toLocaleString('is-IS')+' nemendur');
 
@@ -835,6 +849,26 @@ function calcLaun(){
 calc();
 calcLaun();
 calcSkip();
+function resetAll(){
+  const defaults = {
+    skolar:0, nem5:0, nem9:0,
+    pd:0, pt:0, pk:0,
+    gt:0, gk:0,
+    km:0, krkm:0,
+    kof:0, kod:0, kot:0, kok:0,
+    'an-pappir':0, 'an-moppur':0, 'an-postur':0, 'an-adrir':0,
+    'sk-bekkir':0, 'sk-per-dag':1, 'sk-vikur':2.5, 'sk-dagar-viku':5,
+    'L-ml':900000, 'L-lh':1.35
+  };
+  Object.entries(defaults).forEach(([id,val])=>{
+    const el=document.getElementById(id);
+    if(el) el.value=val;
+  });
+  calc();
+  calcLaun();
+  calcSkip();
+}
+
 
 // ---------- TAB 3: SKIPULAG PRÓFSTJÓRA ----------
 function calcSkip(){
